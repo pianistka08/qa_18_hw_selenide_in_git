@@ -31,5 +31,6 @@ public class SelenideWiki {
         $("[id=wiki-body]").shouldHave(text("Soft Assertions"));
         $(byLinkText("Soft assertions")).click();
         $("[id=user-content-3-using-junit5-extend-test-class").should(exist);
+        $(".markdown-body").shouldHave(text("@ExtendWith({SoftAssertsExtension.class})"));
     }
 }

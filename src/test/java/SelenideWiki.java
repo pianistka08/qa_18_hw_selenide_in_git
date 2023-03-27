@@ -16,7 +16,9 @@ public class SelenideWiki {
 
     @BeforeAll
     static void beforeAll() {
+        Configuration.baseUrl = "https://github.com";
         Configuration.holdBrowserOpen = true;
+
     }
 
     @BeforeEach
@@ -26,11 +28,24 @@ public class SelenideWiki {
 
     @Test
     void testJunit5Class() {
-        open("https://github.com/selenide/selenide");
+        String codeExample = """
+                @ExtendWith({SoftAssertsExtension.class})
+                class Tests {
+                  @Test
+                  void test() {
+                    Configuration.assertionMode = SOFT;
+                    open("page.html");
+                                
+                    $("#first").should(visible).click();
+                    $("#second").should(visible).click();
+                  }
+                }
+                """;
+        open("/selenide/selenide");
         $("[id=wiki-tab]").click();
-        $("[id=wiki-body]").shouldHave(text("Soft Assertions"));
-        $(byLinkText("Soft assertions")).click();
+        $(".js-wiki-more-pages-link").click();
+        $(byLinkText("SoftAssertions")).click();
         $("[id=user-content-3-using-junit5-extend-test-class").should(exist);
-        $(".markdown-body").shouldHave(text("@ExtendWith({SoftAssertsExtension.class})"));
+        $(".markdown-body").shouldHave(text(codeExample));
     }
 }

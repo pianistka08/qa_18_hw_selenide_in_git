@@ -16,7 +16,6 @@ public class SelenideWiki {
     static void beforeAll() {
         Configuration.baseUrl = "https://github.com";
         Configuration.holdBrowserOpen = true;
-
     }
 
     @BeforeEach
@@ -46,20 +45,4 @@ public class SelenideWiki {
         $("[id=user-content-3-using-junit5-extend-test-class").should(exist);
         $(".markdown-body").shouldHave(text(codeExample));
     }
-
-      @Test
-    void hoverPractice () {
-        open("https://github.com");
-          $(".d-lg-flex").$(byText("Solutions")).hover();
-          $(byText("Enterprise")).click();
-          $(byText("Build like the best")).should(exist);
-      }
-
-      @Test
-    void dragAndDropPractice () {
-        open("https://the-internet.herokuapp.com/drag_and_drop");
-        // меняем элементы местами с помощью dragAndDrop
-          $("[id=column-a]").dragAndDropTo("[id=column-b]");
-          $("[id=column-a]").shouldHave(text("B"));
-      }
 }

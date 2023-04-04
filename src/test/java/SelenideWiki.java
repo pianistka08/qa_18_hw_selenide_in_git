@@ -1,16 +1,14 @@
 import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.WebDriverRunner;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.WebDriver;
+
 
 import static com.codeborne.selenide.Condition.exist;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byLinkText;
 import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.*;
 
 public class SelenideWiki {
 
@@ -35,7 +33,7 @@ public class SelenideWiki {
                   void test() {
                     Configuration.assertionMode = SOFT;
                     open("page.html");
-                                
+
                     $("#first").should(visible).click();
                     $("#second").should(visible).click();
                   }
@@ -48,4 +46,20 @@ public class SelenideWiki {
         $("[id=user-content-3-using-junit5-extend-test-class").should(exist);
         $(".markdown-body").shouldHave(text(codeExample));
     }
+
+      @Test
+    void hoverPractice () {
+        open("https://github.com");
+          $(".d-lg-flex").$(byText("Solutions")).hover();
+          $(byText("Enterprise")).click();
+          $(byText("Build like the best")).should(exist);
+      }
+
+      @Test
+    void dragAndDropPractice () {
+        open("https://the-internet.herokuapp.com/drag_and_drop");
+        // меняем элементы местами с помощью dragAndDrop
+          $("[id=column-a]").dragAndDropTo("[id=column-b]");
+          $("[id=column-a]").shouldHave(text("B"));
+      }
 }
